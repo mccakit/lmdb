@@ -1,0 +1,8 @@
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/testdb")
+file(GLOB TEST_SOURCES "mtest*.c")
+foreach(test_source IN LISTS TEST_SOURCES)
+    get_filename_component(test_name "${test_source}" NAME_WE)
+    add_executable(${test_name} "${test_source}")
+    target_link_libraries(${test_name} PRIVATE lmdb)
+    add_test(NAME ${test_name} COMMAND ${test_name})
+endforeach()
